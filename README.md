@@ -44,7 +44,10 @@ Thread Server
 Gestione dei 2 giocatori in contemporanea
 
 Client
-Gestione del gioco
+Gestione delle informazioni scambiate 
+
+Snake2P
+Calcoli e visualizzazione
 
 
 
