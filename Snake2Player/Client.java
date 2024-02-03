@@ -28,9 +28,13 @@ public class Client {
         while (true) {
             System.out.println("Inserisci un input:");
             String input = keyboard.readLine();
-            out.println(input);
-
-            // Receive the updated game matrix from the server
+            
+            // Invia l'input al server solo se è uno degli input consentiti
+            if (isValidInput(input)) {
+                out.println(input);
+            }
+            
+            // Ricevi la matrice di gioco aggiornata dal server
             String[] rows = in.readLine().split(",");
             int[][] gameMatrix = new int[rows.length][];
             for (int i = 0; i < rows.length; i++) {
@@ -40,14 +44,22 @@ public class Client {
                     gameMatrix[i][j] = Integer.parseInt(cells[j]);
                 }
             }
-
-            // Update the window with the new game matrix
+    
+            // Aggiorna la finestra con la nuova matrice di gioco
             SwingUtilities.invokeLater(() -> drawGameMatrix(gameMatrix));
         }
     }
+    
+    private boolean isValidInput(String input) {
+        // Implementa la logica per verificare se l'input è valido (UP, DOWN, LEFT, RIGHT)
+        return input.equals("UP") || input.equals("DOWN") || input.equals("LEFT") || input.equals("RIGHT");
+    }
+    
 
     private void drawGameMatrix(int[][] gameMatrix) {
         Graphics g = frame.getGraphics();
+        g.clearRect(0, 0, frame.getWidth(), frame.getHeight());
+
         for (int i = 0; i < gameMatrix.length; i++) {
             for (int j = 0; j < gameMatrix[i].length; j++) {
                 switch (gameMatrix[i][j]) {
